@@ -6,7 +6,7 @@ your app's visual layouts for localization friendliness.
 
 ## Command Line Usage
 
-% `pseudo-loc-py\bin\pseudo_loc -h`
+% `pseudo-loc\bin\pseudo_loc -h`
 
 ``` 
 usage: pseudo_loc [-h] [-o OUTPUT_FOLDER] [-e EXCLUSION_LIST] [-v] files [files ...]
