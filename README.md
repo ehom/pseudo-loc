@@ -1,8 +1,8 @@
 # pseudo_loc 
 
-You can use this command line tool to pseudo-localize your applications 
+You can use this command line tool to pseudo-localize your application's 
 user-facing messages to find concatenated messages as well as test 
-your app's visual layouts for localization friendliness. 
+the visual layouts for localization friendliness. 
 
 ## Overview
 
