@@ -5,6 +5,7 @@
 import os
 import sys
 import argparse
+from __init__ import __version__
 
 fpath = os.path.join(os.path.dirname(__file__), '..')
 sys.path.append(fpath)
@@ -94,7 +95,7 @@ if __name__ == '__main__':
     parser.add_argument(
         "-v", "--version",
         action="version",
-        version="%(prog)s 0.1.0")
+        version="%(prog)s {version}".format(version=__version__))
 
     arguments = parser.parse_args(args=None if sys.argv[1:] else ["--help"])
 
