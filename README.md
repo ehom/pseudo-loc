@@ -4,6 +4,10 @@ You can use this command line tool to pseudo-localize your applications
 user-facing messages to find concatenated messages as well as test 
 your app's visual layouts for localization friendliness. 
 
+## Overview
+
+![overview](images/pseudo_loc_diagram.svg)
+
 ## Command Line Usage
 
 % `pseudo-loc\bin\pseudo_loc -h`
