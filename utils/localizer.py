@@ -1,3 +1,6 @@
+import re
+
+
 class UnicodeChars:
     PILCROW: str = "\u00b6"
     MATH_LEFT_DOUBLE_ANGLE: str = "\u27ea"
@@ -13,8 +16,7 @@ class BracketStrategy:
         return self._left_bracket
 
     @left_bracket.setter
-    def left_bracket(self, char):
-        char: str
+    def left_bracket(self, char: str):
         self._left_bracket = char
 
     @property
@@ -22,13 +24,14 @@ class BracketStrategy:
         return self._right_bracket
 
     @right_bracket.setter
-    def right_bracket(self, char):
-        char: str
+    def right_bracket(self, char: str):
         self._right_bracket = char
 
-    def perform(self, text) -> str:
-        text: str
-        return self._left_bracket + text + self._right_bracket
+    def perform(self, text: str) -> str:
+        def add_brackets(match_obj):
+            return self._left_bracket + match_obj.group() + self._right_bracket
+        text = re.sub(r"{\w*}", add_brackets, text)
+        return f"{self._left_bracket}{text}{self._right_bracket}"
 
 
 class PaddingStrategy:
@@ -39,10 +42,10 @@ class PaddingStrategy:
         return self._pad_char
 
     @pad_char.setter
-    def pad_char(self, char):
+    def pad_char(self, char: str):
         self.pad_char = char
 
-    def perform(self, text):
+    def perform(self, text: str):
         expansion = int(len(text) / 3)
         padding = self.pad_char * expansion
         return padding + text + padding
@@ -53,9 +56,8 @@ class Localizer:
         self._bracket_strategy = bracket_strategy
         self._padding_strategy = padding_strategy
 
-    def localize(self, text) -> str:
-        text: str
-        padded = self._padding_strategy.perform(text)
+    def localize(self, text: str) -> str:
+        padded: str = self._padding_strategy.perform(text)
         return self._bracket_strategy.perform(padded)
 
     class Builder:
