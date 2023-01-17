@@ -42,18 +42,24 @@ class Processor:
             print(set_of_identifiers)
 
         results = {}
-        for item in self.content.items():
-            key, value = item
-            print(f"key: {key}")
-            print("value: {}".format(value['message']))
-            if key in set_of_identifiers:
-                localized = value['message']
+        for message_id, message in self.content.items():
+            if message is None:
+                continue
+
+            if type(message) is dict and message['message'] is not None:
+                message = message['message']
+
+            print(f"key: {message_id}")
+            print("value: {}".format(message))
+
+            if message_id in set_of_identifiers:
+                localized = message
             else:
-                localized = self.localizer.localize(value['message'])
+                localized = self.localizer.localize(message)
 
             print(f'localized message: {localized}')
 
-            results[key] = {
+            results[message_id] = {
                 "message": localized
             }
         self.writer.write(results)
