@@ -9,6 +9,7 @@ from pprint import PrettyPrinter
 
 pp = PrettyPrinter(indent=4, width=80)
 
+
 class Processor:
     def __init__(self, reader, localizer, writer, exclusion_list):
         self.localizer = localizer
