@@ -1,5 +1,6 @@
 import os
 import sys
+import logging
 
 fpath = os.path.join(os.path.dirname(__file__), '..')
 sys.path.append(fpath)
@@ -43,8 +44,7 @@ class Processor:
             if type(message) is dict and message['message'] is not None:
                 message = message['message']
 
-            print(f"key: {message_id}")
-            print("value: {}".format(message))
+            logging.info("Pseudo-localize: \"{0}\": \"{1}\"".format(message_id, message))
 
             if message_id in set_of_identifiers:
                 localized = message
@@ -60,18 +60,23 @@ class Processor:
 
 
 def main(args):
-    print(args.files)
-    print("output folder:", args.output_folder)
-    print("exclusion list:", args.exclusion_list)
+    logging.basicConfig(
+        format='%(asctime)s %(levelname)-8s %(message)s',
+        datefmt="%Y-%m-%d %H:%M:%S",
+        filename='pseudo_loc.log', level=logging.INFO)
+
+    logging.info(f"Input files: {args.files}")
+    logging.info(f"Output folder: {args.output_folder}")
+    logging.info(f"Exclusion list: {args.exclusion_list}")
 
     localizer = utils.Localizer()
 
     for filename in args.files:
-        print(f"***** Processing {filename} ...")
+        logging.info(f"Processing \"{filename}\"...")
         reader = utils.FileReader.get(filename)
 
         file_path = utils.build_file_path(filename, args.output_folder)
-        print("Target File Path: {}".format(file_path))
+        logging.info("The pseudo-localized file will go here: {}".format(file_path))
         writer = utils.FileWriter.get(file_path)
 
         Processor(reader, localizer, writer, args.exclusion_list).execute()
