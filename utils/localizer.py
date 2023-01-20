@@ -5,11 +5,15 @@ class UnicodeChars:
     PILCROW: str = "\u00b6"
     MATH_LEFT_DOUBLE_ANGLE: str = "\u27ea"
     MATH_RIGHT_DOUBLE_ANGLE: str = "\u27eb"
+    LEFT_CORNER_BRACKET: str = "\u300C"
+    RIGHT_CORNER_BRACKET: str = "\u300D"
 
 
 class BracketStrategy:
     _left_bracket = UnicodeChars.MATH_LEFT_DOUBLE_ANGLE
     _right_bracket = UnicodeChars.MATH_RIGHT_DOUBLE_ANGLE
+    _left_inside_bracket = UnicodeChars.LEFT_CORNER_BRACKET
+    _right_inside_bracket = UnicodeChars.RIGHT_CORNER_BRACKET
 
     @property
     def left_bracket(self):
@@ -29,7 +33,7 @@ class BracketStrategy:
 
     def perform(self, text: str) -> str:
         def add_brackets(match_obj):
-            return self._left_bracket + match_obj.group() + self._right_bracket
+            return self._left_inside_bracket + match_obj.group() + self._right_inside_bracket
         text = re.sub(r"{\w*}", add_brackets, text)
         return f"{self._left_bracket}{text}{self._right_bracket}"
 
