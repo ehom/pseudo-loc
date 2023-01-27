@@ -13,7 +13,7 @@ the visual layouts for localization friendliness.
 % `pseudo-loc\bin\pseudo_loc -h`
 
 ``` 
-usage: pseudo_loc [-h] [-o OUTPUT_FOLDER] [-e EXCLUSION_LIST] [-v] files [files ...]
+usage: pseudo_loc [-h] [-p] [-o OUTPUT_FOLDER] [-e EXCLUSION_LIST] [-v] files [files ...]
 
 Pseudo-localize a list of files
 
@@ -22,6 +22,7 @@ positional arguments:
 
 optional arguments:
   -h, --help            show this help message and exit
+  -p, --pad             add padding to pseudo-localized text
   -o OUTPUT_FOLDER, --output_folder OUTPUT_FOLDER
                         folder where the pseudo-localized files will be written to.
   -e EXCLUSION_LIST, --exclusion_list EXCLUSION_LIST
