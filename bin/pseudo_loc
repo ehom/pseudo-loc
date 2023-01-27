@@ -19,6 +19,11 @@ if __name__ == '__main__':
         "files", nargs='+',
         help="list of files to be pseudo-localized")
     parser.add_argument(
+        "-p", "--pad",
+        action="store_true",
+        help="add padding to pseudo-localized text",
+        required=False)
+    parser.add_argument(
         "-o", "--output_folder",
         help="folder where the pseudo-localized files will be written to.",
         required=False)

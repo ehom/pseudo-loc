@@ -6,6 +6,7 @@ fpath = os.path.join(os.path.dirname(__file__), '..')
 sys.path.append(fpath)
 
 import utils
+from pseudo_loc.lib import Localizer
 from pprint import PrettyPrinter
 
 pp = PrettyPrinter(indent=4, width=80)
@@ -68,8 +69,10 @@ def main(args):
     logging.info(f"Input files: {args.files}")
     logging.info(f"Output folder: {args.output_folder}")
     logging.info(f"Exclusion list: {args.exclusion_list}")
+    logging.info(f"Add Padding: {args.pad}")
 
-    localizer = utils.Localizer()
+    localizer = Localizer()
+    localizer.pad_text = args.pad
 
     for filename in args.files:
         logging.info(f"Processing \"{filename}\"...")
