@@ -23,19 +23,20 @@ class Processor:
     def execute(self):
         try:
             self.content = self.reader.read()
-            pp.pprint(self.content)
+            # pp.pprint(self.content)
         except FileNotFoundError:
             print("Error: File Not Found: {}".format(self.reader.filename))
             return
 
-        print("process execute: ", self.exclusion_list)
+        # print("process execute: exclusion_list", self.exclusion_list)
 
         set_of_identifiers = set([])
-        if self.exclusion_list is not None:
+        if self.exclusion_list:
             data = self.exclusion_list.read()
             list_of_identifiers = data.split("\n")
             set_of_identifiers = set(list_of_identifiers)
-            print(set_of_identifiers)
+
+            print("Exclusion List:", set_of_identifiers)
 
         results = {}
         for message_id, message in self.content.items():
@@ -79,7 +80,8 @@ def main(args):
         reader = utils.FileReader.get(filename)
 
         file_path = utils.build_file_path(filename, args.output_folder)
-        logging.info("The pseudo-localized file will go here: {}".format(file_path))
         writer = utils.FileWriter.get(file_path)
 
         Processor(reader, localizer, writer, args.exclusion_list).execute()
+
+        print(f"The pseudo-localized file has been saved here: {file_path}")
