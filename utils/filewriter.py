@@ -27,7 +27,7 @@ class JsonFileWriter(FileWriter):
         super().__init__(filename)
 
     def write(self, dict_obj):
-        print("JsonFileWriter write")
+        # print("JsonFileWriter write")
         json_obj_str = json.dumps(dict_obj, indent=4, ensure_ascii=False)
 
         with open(self._filename, 'w', encoding="utf-8") as outputHandle:

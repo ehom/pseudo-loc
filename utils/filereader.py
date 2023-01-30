@@ -6,10 +6,8 @@ from jproperties import Properties
 class FileReader:
     def __init__(self, filename):
         self._filename = filename
-        print("FileReader:", filename)
 
     def read(self) -> dict:
-        print("FileReader read")
         return {}
 
     @property
@@ -31,13 +29,9 @@ class FileReader:
 
 class JsonFileReader(FileReader):
     def __init__(self, filename):
-        print("JsonFileReader")
         super().__init__(filename)
-        print("JsonFileReader:", self.filename)
 
     def read(self) -> dict:
-        print("Json FileReader perform:", self._filename)
-
         with open(self._filename) as f:
             content = json.load(f)
         return content
@@ -45,7 +39,6 @@ class JsonFileReader(FileReader):
 
 class PropertiesFileReader(FileReader):
     def __init__(self, filename):
-        print("PropertiesReader")
         super().__init__(filename)
 
     def read(self) -> dict:
