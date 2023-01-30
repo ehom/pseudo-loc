@@ -1,0 +1,11 @@
+{
+  "greetings": {
+    "message": "hello, world"
+  },
+  "farewell": {
+    "message": "godspeed"
+  },
+  "did.napoleon.say.this": {
+    "message": "able was i ere i saw elba"
+  }
+}

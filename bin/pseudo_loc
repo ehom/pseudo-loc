@@ -1,0 +1,41 @@
+#!/usr/bin/env python3
+
+# This Python script pseudo-localizes files that you pass to it.
+
+import os
+import sys
+import argparse
+
+fpath = os.path.join(os.path.dirname(__file__), '..')
+sys.path.append(fpath)
+
+import pseudo_loc
+
+if __name__ == '__main__':
+    parser = argparse.ArgumentParser(
+        description="Pseudo-localize a list of files",
+        epilog = "Thanks for using %(prog)s!")
+    parser.add_argument(
+        "files", nargs='+',
+        help="list of files to be pseudo-localized")
+    parser.add_argument(
+        "-p", "--pad",
+        action="store_true",
+        help="add padding to pseudo-localized text",
+        required=False)
+    parser.add_argument(
+        "-o", "--output_folder",
+        help="folder where the pseudo-localized files will be written to.",
+        required=False)
+    parser.add_argument(
+        "-e", "--exclusion_list", type=argparse.FileType('r'),
+        help="name of file containing identifiers of messages that WILL NOT be pseudo-localized",
+        required=False)
+    parser.add_argument(
+        "-v", "--version",
+        action="version",
+        version="%(prog)s {version}".format(version=pseudo_loc.__version__))
+
+    arguments = parser.parse_args(args=None if sys.argv[1:] else ["--help"])
+
+    pseudo_loc.main(arguments)
