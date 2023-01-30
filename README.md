@@ -1,8 +1,20 @@
 # pseudo_loc 
 
-You can use this command line tool to pseudo-localize your application's 
-user-facing messages to find concatenated messages as well as test 
-the visual layouts for localization friendliness. 
+You can use this command line tool to help you identify concatenated messages and 
+check if your visual layouts are localization-friendly.
+
+Conventional Pseudo-localization contains 3 steps:
+
+Step 1: **Character Substitution** &mdash; (eg, swapping unaccented for accented characters)
+
+Step 2: **Text Padding** &mdash; (adding extra chars to the beginning and/or end of each message 
+to simulate the lengthiness of localized text)
+
+Step 3: **Bracketing** &mdash; adding a character to the beginning and end of each message resource
+
+This tool only supports Steps 2 and 3.
+
+`Step 3` is enabled by default while `Step 2` needs to be turned on by specifying the option at the command line.
 
 ## Overview
 
