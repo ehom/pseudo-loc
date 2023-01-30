@@ -5,8 +5,8 @@ class UnicodeChars:
     PILCROW: str = "\u00b6"
     MATH_LEFT_DOUBLE_ANGLE: str = "\u27ea"
     MATH_RIGHT_DOUBLE_ANGLE: str = "\u27eb"
-    LEFT_CORNER_BRACKET: str = "\u300C"
-    RIGHT_CORNER_BRACKET: str = "\u300D"
+    MATH_LEFT_ANGLE_BRACKET: str = "\u27e8"
+    MATH_RIGHT_ANGLE_BRACKET: str = "\u27e9"
 
 
 class StringOperation:
@@ -18,8 +18,8 @@ class BracketStrategy(StringOperation):
     def __init__(self):
         self._left_bracket = UnicodeChars.MATH_LEFT_DOUBLE_ANGLE
         self._right_bracket = UnicodeChars.MATH_RIGHT_DOUBLE_ANGLE
-        self._left_inside_bracket = UnicodeChars.LEFT_CORNER_BRACKET
-        self._right_inside_bracket = UnicodeChars.RIGHT_CORNER_BRACKET
+        self._left_inside_bracket = UnicodeChars.MATH_LEFT_ANGLE_BRACKET
+        self._right_inside_bracket = UnicodeChars.MATH_RIGHT_ANGLE_BRACKET
 
     @property
     def left_bracket(self):
