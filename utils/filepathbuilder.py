@@ -2,26 +2,27 @@ import pathlib
 import os
 
 
-def build_file_path(filename, target_path) -> str:
-    """ build a file_path """
-    file_path = os.path.abspath(filename)
-    p = pathlib.Path(file_path)
-    src_path = p.parents[0]
-    filename = p.name
+def derive_output_target(filename, target_path) -> dict:
+    def get_filename_info(fname: str) -> dict:
+        abspath = os.path.abspath(fname)
+        p = pathlib.Path(abspath)
 
-    # print(src_path, filename)
+        return {
+            "abspath_folder": p.parents[0],
+            "filename": p.name
+        }
+
+    info = get_filename_info(filename)
 
     if target_path:
-        target_path = os.path.abspath(target_path)
+        folder_path = os.path.abspath(target_path)
     else:
-        target_path = src_path
-    target_path = os.path.join(target_path, "pseudo")
+        folder_path = info['abspath_folder']
+    folder_path = os.path.join(folder_path, "pseudo")
 
-    # print("path of target folder:", target_path)
+    file_path = os.path.join(folder_path, info['filename'])
 
-    os.makedirs(target_path, exist_ok=True)
-    file_path = os.path.join(target_path, filename)
-
-    # print("path of target file:", file_path)
-
-    return file_path
+    return {
+        "folder_path": folder_path,
+        "file_path": file_path
+    }
