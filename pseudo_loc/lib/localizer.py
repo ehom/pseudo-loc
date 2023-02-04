@@ -10,8 +10,8 @@ class UnicodeChars:
 
 
 class StringOperation:
-    def perform(self, text):
-        pass
+    def perform(self, text) -> str:
+        return text
 
 
 class BracketStrategy(StringOperation):
@@ -84,13 +84,29 @@ class Localizer:
         return self._pad_text
 
     @pad_text.setter
-    def pad_text(self, flag=True):
+    def pad_text(self, flag: bool):
         self._pad_text = flag
 
+    def bracket_decorate(func):
+        def func_wrapper(self, text):
+            if self._bracket_strategy:
+                return self._bracket_strategy.perform(text)
+            else:
+                return text
+        return func_wrapper
+
+    def pad_decorate(func):
+        def func_wrapper(self, text):
+            if self._pad_text:
+                return self._padding_strategy.perform(text)
+            else:
+                return text
+        return func_wrapper
+
+    @bracket_decorate
+    @pad_decorate
     def localize(self, text: str):
-        if self.pad_text is True:
-            text = self._padding_strategy.perform(text)
-        return self._bracket_strategy.perform(text)
+        return text
 
     class Builder:
         def __init__(self):
