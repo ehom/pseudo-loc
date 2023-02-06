@@ -15,11 +15,11 @@ class StringOperation:
 
 
 class BracketStrategy(StringOperation):
-    def __init__(self):
-        self._left_bracket = UnicodeChars.MATH_LEFT_DOUBLE_ANGLE
-        self._right_bracket = UnicodeChars.MATH_RIGHT_DOUBLE_ANGLE
-        self._left_inside_bracket = UnicodeChars.MATH_LEFT_ANGLE_BRACKET
-        self._right_inside_bracket = UnicodeChars.MATH_RIGHT_ANGLE_BRACKET
+    _left_bracket = UnicodeChars.MATH_LEFT_DOUBLE_ANGLE
+    _right_bracket = UnicodeChars.MATH_RIGHT_DOUBLE_ANGLE
+    _inside_brackets = [
+        UnicodeChars.MATH_LEFT_ANGLE_BRACKET,
+        UnicodeChars.MATH_RIGHT_ANGLE_BRACKET]
 
     @property
     def left_bracket(self):
@@ -39,9 +39,8 @@ class BracketStrategy(StringOperation):
 
     def perform(self, text: str) -> str:
         def add_brackets(match_obj):
-            return self._left_inside_bracket + \
-                match_obj.group() + \
-                self._right_inside_bracket
+            left, right = self._inside_brackets
+            return left + match_obj.group() + right
         text = re.sub(r"{\w*}", add_brackets, text)
         return f"{self._left_bracket}{text}{self._right_bracket}"
 
@@ -63,21 +62,40 @@ class PaddingStrategy(StringOperation):
         return padding + text + padding
 
 
+def bracket_decorate(method):
+    def func_wrapper(self, text: str):
+        text = method(self, text)
+        if self._bracket_strategy:
+            return self._bracket_strategy.perform(text)
+        else:
+            return text
+    return func_wrapper
+
+
+def pad_decorate(method):
+    def func_wrapper(self, text: str):
+        text = method(self, text)
+        if self._pad_text:
+            return self._padding_strategy.perform(text)
+        else:
+            return text
+    return func_wrapper
+
+
 class Localizer:
     def __init__(self, bracket_strategy: StringOperation = None,
                  padding_strategy: StringOperation = None):
-
         self._pad_text = False
 
-        if bracket_strategy is None:
-            self._bracket_strategy = BracketStrategy()
-        else:
+        if bracket_strategy:
             self._bracket_strategy = bracket_strategy
-
-        if padding_strategy is None:
-            self._padding_strategy = PaddingStrategy()
         else:
+            self._bracket_strategy = BracketStrategy()
+
+        if padding_strategy:
             self._padding_strategy = padding_strategy
+        else:
+            self._padding_strategy = PaddingStrategy()
 
     @property
     def pad_text(self):
@@ -87,50 +105,7 @@ class Localizer:
     def pad_text(self, flag: bool):
         self._pad_text = flag
 
-    def bracket_decorate(func):
-        def func_wrapper(self, text):
-            if self._bracket_strategy:
-                return self._bracket_strategy.perform(text)
-            else:
-                return text
-        return func_wrapper
-
-    def pad_decorate(func):
-        def func_wrapper(self, text):
-            if self._pad_text:
-                return self._padding_strategy.perform(text)
-            else:
-                return text
-        return func_wrapper
-
     @bracket_decorate
     @pad_decorate
     def localize(self, text: str):
         return text
-
-    class Builder:
-        def __init__(self):
-            self._padding_strategy: StringOperation = PaddingStrategy()
-            self._bracket_strategy: StringOperation = BracketStrategy()
-
-        @property
-        def padding_strategy(self):
-            return self._padding_strategy
-
-        @padding_strategy.setter
-        def padding_strategy(self, padding_strategy: StringOperation):
-            self._padding_strategy = padding_strategy
-            return self
-
-        @property
-        def bracket_strategy(self):
-            return self._bracket_strategy
-
-        @bracket_strategy.setter
-        def bracket_strategy(self, bracket_strategy: StringOperation):
-            self._bracket_strategy = bracket_strategy
-            return self
-
-        def build(self):
-            return Localizer(padding_strategy=self._padding_strategy,
-                             bracket_strategy=self._bracket_strategy)
