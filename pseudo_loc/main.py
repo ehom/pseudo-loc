@@ -7,6 +7,7 @@ sys.path.append(fpath)
 
 import utils
 from pseudo_loc.lib import Localizer
+from pseudo_loc.app_output_target import customize
 from pprint import PrettyPrinter
 
 pp = PrettyPrinter(indent=4, width=80)
@@ -28,8 +29,6 @@ class Processor:
         except FileNotFoundError:
             print("Error: File Not Found: {}".format(self.reader.filename))
             return
-
-        # print("process execute: exclusion_list", self.exclusion_list)
 
         set_of_identifiers = set([])
         if self.exclusion_list:
@@ -81,7 +80,7 @@ def main(args):
         logging.info(f"Processing \"{filename}\"...")
         reader = utils.FileReader.get(filename)
 
-        output_target: dict = utils.derive_output_target(filename, args.output_folder)
+        output_target: dict = customize(filename, args.output_folder)
         writer = utils.FileWriter.get(output_target['file_path'])
 
         Processor(reader, localizer, writer, args.exclusion_list, output_target).execute()
