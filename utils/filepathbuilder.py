@@ -3,26 +3,16 @@ import os
 
 
 def derive_output_target(filename, target_path) -> dict:
-    def get_filename_info(fname: str) -> dict:
+    def derive_folder_path_and_filename(fname: str) -> dict:
         abspath = os.path.abspath(fname)
         p = pathlib.Path(abspath)
+        return dict(folder_path=p.parents[0], filename=p.name)
 
-        return {
-            "abspath_folder": p.parents[0],
-            "filename": p.name
-        }
+    info = derive_folder_path_and_filename(filename)
 
-    info = get_filename_info(filename)
-
+    # if a custom output folder was provided at the command line
     if target_path:
         folder_path = os.path.abspath(target_path)
     else:
-        folder_path = info['abspath_folder']
-    folder_path = os.path.join(folder_path, "pseudo")
-
-    file_path = os.path.join(folder_path, info['filename'])
-
-    return {
-        "folder_path": folder_path,
-        "file_path": file_path
-    }
+        folder_path = info['folder_path']
+    return dict(folder_path=folder_path, file_path=info['filename'])
