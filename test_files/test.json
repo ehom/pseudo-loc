@@ -1,11 +1,83 @@
 {
-  "greetings": {
-    "message": "hello, world"
+  "message.with.ascii.quotes": {
+    "message": "We're having \"trouble\" starring this page",
+    "description": "Title of error flag shown when a user attempts to click the 'Star this page' button but the starring action fails"
   },
-  "farewell": {
-    "message": "godspeed"
+  "message.with.ascii.ellipses": {
+    "message": "Hmm..."
   },
-  "did.napoleon.say.this": {
-    "message": "able was i ere i saw elba"
-  }
+  "message.incomplete.sentence.1": {
+    "message": ", only to be told a lie."
+  },
+  "message.incomplete.sentence.2": {
+    "message": ". After that,"
+  },
+  "message.incomplete.sentence.3": {
+    "message": "Login and"
+  },
+  "message.incomplete.sentence.ending.with.or": "Send them an email or",
+  "message.incomplete.sentence.beginning.with.or": "or contact support",
+  "message.incomplete.sentence.beginning.with.and": "and contact support",
+  "message.with.plural.1": {
+    "message": "{count} minutes ago"
+  },
+  "message.with.plural.2": {
+    "message": "{count} weeks ago"
+  },
+  "message.with.plural.3": "in {count} day",
+  "message.with.orphan.placeholder.1": {
+    "message": "{0}"
+  },
+  "message.with.plural.hours": {
+    "message": "The meeting went on for {0} hours"
+  },
+  "message.with.orphan.placeholder.2": {
+    "message": "{placeholder}"
+  },
+  "message.with.orphan.placeholder.3": {
+    "message": "{}"
+  },
+  "message.with.definite.article.1": {
+    "message": "The {0} was not ready to be picked up"
+  },
+  "message.with.definite.article.2": {
+    "message": "the {0} was not ready to be picked up"
+  },
+  "message.with.definite.article.3": {
+    "message": "the {} was not ready to be picked up"
+  },
+  "message.with.indefinite.article.1": {
+    "message": "There was a {0} ready to be picked up"
+  },
+  "message.with.indefinite.article.2": {
+    "message": "There was A    {0} ready to be picked up"
+  },
+  "message.with.indefinite.article.3": {
+    "message": "There was a(n) {0} that wasn't reported"
+  },
+  "message.incomplete.sentence": ", only to be told a lie.",
+  "message.with.url.1": {
+    "message": "Please visit our website by clicking <a href=\"https://www.google.com\">here</a>."
+  },
+  "message.with.url.2": {
+    "message": "Please visit our website: https://www.msn.com"
+  },
+  "message.with.percentage.1": {
+    "message": "The projections are not {value}% accurate."
+  },
+  "message.with.percentage.2": {
+    "message": "The projections are not {value}     % accurate."
+  },
+  "message.with.percentage.3": {
+    "message": "The projections are not {0}     % accurate."
+  },
+  "message.with.percentage.4": {
+    "message": "The projections are not {}     % accurate."
+  },
+  "message.with.no_description": "This is a message with no description",
+  "message.with.nothing.1": "   ",
+  "message.with.nothing.2": {
+    "message": ""
+  },
+  "message.with.pangram": "The quick brown fox jumps over the lazy dog."
 }
