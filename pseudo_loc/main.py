@@ -22,6 +22,7 @@ class Processor:
         self.exclusion_list = exclusion_list
         self.output_target = output_target
 
+
     def execute(self):
         try:
             self.content = self.reader.read()
@@ -86,3 +87,4 @@ def main(args):
         Processor(reader, localizer, writer, args.exclusion_list, output_target).execute()
 
         print(f"The pseudo-localized file has been saved here: {output_target['file_path']}")
+
