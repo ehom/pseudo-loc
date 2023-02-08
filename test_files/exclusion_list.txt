@@ -1,2 +1,1 @@
-greetings
-did.napoleon.say.this
+message.with.pangram
